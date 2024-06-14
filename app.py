@@ -20,6 +20,14 @@ def generate_frames():
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame_as_bytes + b'\r\n')
 
+@app.route('/')
+def index():
+    return "Live Stream is running. Access /video_feed to see the stream."
+
+@app.route('/favicon.ico')
+def favicon():
+    return '', 204  # No Content
+
 @app.route('/video_feed')
 def video_feed():
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
